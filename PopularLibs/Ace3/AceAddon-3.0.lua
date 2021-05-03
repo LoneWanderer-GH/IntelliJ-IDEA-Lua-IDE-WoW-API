@@ -1,15 +1,14 @@
 ---@class AceAddon
 AceAddon = {}
 
-
 --- Create a new AceAddon-3.0 addon.
 --- Any libraries you specified will be embeded, and the addon will be scheduled for
 --- its OnInitialize and OnEnable callbacks.
 --- The final addon object, with all libraries embeded, will be returned.
 --- @paramsig [object ,]name[, lib, ...]
---- @param object Table to use as a base for the addon (optional)
---- @param name Name of the addon object to create
---- @param lib List of libraries to embed into the addon
+--- @param objectorname Table | string @ to use as a base for the addon (optional)
+--- @param name Name @ of the addon object to create
+--- @param libs table @ List of libraries to embed into the addon
 --- @usage
 --- -- Create a simple addon object
 --- MyAddon = LibStub("AceAddon-3.0"):NewAddon("MyAddon", "AceEvent-3.0")
@@ -17,13 +16,12 @@ AceAddon = {}
 --- -- Create a Addon object based on the table of a frame
 --- local MyFrame = CreateFrame("Frame")
 --- MyAddon = LibStub("AceAddon-3.0"):NewAddon(MyFrame, "MyAddon", "AceEvent-3.0")
-function AceAddon:NewAddon(objectorname, ...) end
-
+function AceAddon:NewAddon(objectorname, name, libs) end
 
 --- Get the addon object by its name from the internal AceAddon registry.
 --- Throws an error if the addon object cannot be found (except if silent is set).
---- @param name unique name of the addon object
---- @param silent if true, the addon is optional, silently return nil if its not found
+--- @param name string @ unique name of the addon object
+--- @param silent boolean @ if true, the addon is optional, silently return nil if its not found
 --- @usage
 --- -- Get the Addon
 --- MyAddon = LibStub("AceAddon-3.0"):GetAddon("MyAddon")
@@ -35,9 +33,9 @@ function AceAddon:GetAddon(name, silent) end
 ---
 --- **Note:** This function is for internal use by :NewAddon/:NewModule
 --- @paramsig addon, [lib, ...]
---- @param addon addon object to embed the libs in
---- @param lib List of libraries to embed into the addon
-function AceAddon:EmbedLibraries(addon, ...) end
+--- @param addon string @ addon object to embed the libs in
+--- @param libs table @ List of libraries to embed into the addon
+function AceAddon:EmbedLibraries(addon, libs) end
 
 --- - Embed a library into the addon object.
 --- This function will check if the specified library is registered with LibStub
@@ -46,33 +44,33 @@ function AceAddon:EmbedLibraries(addon, ...) end
 ---
 --- **Note:** This function is for internal use by :EmbedLibraries
 --- @paramsig addon, libname[, silent[, offset]]
---- @param addon addon object to embed the library in
---- @param libname name of the library to embed
---- @param silent marks an embed to fail silently if the library doesn't exist (optional)
---- @param offset will push the error messages back to said offset, defaults to 2 (optional)
+--- @param addon string @ addon object to embed the library in
+--- @param libname string @ name of the library to embed
+--- @param silent boolean @ marks an embed to fail silently if the library doesn't exist (optional)
+--- @param offset number @ will push the error messages back to said offset, defaults to 2 (optional)
 function AceAddon:EmbedLibrary(addon, libname, silent, offset) end
 
 --- Return the specified module from an addon object.
 --- Throws an error if the addon object cannot be found (except if silent is set)
 --- @name //addon//:GetModule
 --- @paramsig name[, silent]
---- @param name unique name of the module
---- @param silent if true, the module is optional, silently return nil if its not found (optional)
+--- @param name string @ unique name of the module
+--- @param silent boolean @ if true, the module is optional, silently return nil if its not found (optional)
 --- @usage
 --- -- Get the Addon
 --- MyAddon = LibStub("AceAddon-3.0"):GetAddon("MyAddon")
 --- -- Get the Module
 --- MyModule = MyAddon:GetModule("MyModule")
-function AceAddon:GetModule(self, name, silent) end
-
+function AceAddon:GetModule(name, silent) end
 
 --- Returns the real name of the addon or module, without any prefix.
 --- @name //addon//:GetName
 --- @paramsig
 --- @usage
+---@return string @addon name
 --- print(MyAddon:GetName())
 --- -- prints "MyAddon"
-function AceAddon:GetName(self) end
+function AceAddon:GetName() end
 
 --- Enables the Addon, if possible, return true or false depending on success.
 --- This internally calls AceAddon:EnableAddon(), thus dispatching a OnEnable callback

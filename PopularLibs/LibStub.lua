@@ -1,4 +1,4 @@
----@class LibStub
+--- @class LibStub
 LibStub = {}
 
 --- @param major string @ the major version of the library
