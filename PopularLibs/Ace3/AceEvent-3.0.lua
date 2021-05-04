@@ -6,7 +6,7 @@ AceEvent = {}
 --- Any arguments to the event will be passed on after that.
 --- @name AceEvent:RegisterEvent
 --- @paramsig event[, callback [, arg]]
---- @param event string | GAME_EVENT @ The event to register for
+--- @param event GAME_EVENT @ The event to register for
 --- @param callback func @ The callback function to call when the event is triggered (funcref or method, defaults to a method with the event name)
 --- @param arg any @ An optional argument to pass to the callback function
 function AceEvent:RegisterEvent(event, callback, arg) end
